@@ -4,12 +4,11 @@
 //
 //  Created by xuyunfei on 14-3-26.
 //
-//
-#import "DebugViewController.h"
+//  
+
 #import <CommonCrypto/CommonDigest.h>
 #import "GestureLockViewController.h"
 #import "AppDelegate.h"
-#import "DemoViewController.h"
 @interface GestureLockViewController (){
     KKGestureLockView * _lockView;
     NSString * _lastCode;   //上一次的输入
@@ -35,11 +34,20 @@
         _lastCode = nil;
         _noEqual = NO;
         //初始化key
-        NSString * loginSession = [AresSession singleton].
-        key;
-        NSString * userNo = loginSession;
-        _gesureCodeKey = [NSString stringWithFormat:@"%@_GestureCode",userNo];
+    }
+    return self;
+}
 
+-(id)initWithGesureCodeKey:(NSString *)aCodeKey{
+    self =  [super initWithNibName:@"GestureLockViewController" bundle:nil];
+    if (self) {
+        //默认为输入模式
+        mode = GestureLockViewInput;
+        inputStep = 0;
+        _lastCode = nil;
+        _noEqual = NO;
+        //初始化key
+        _gesureCodeKey = [NSString stringWithFormat:@"%@_GestureCode",aCodeKey];
     }
     return self;
 }
@@ -253,21 +261,6 @@ static float scale  = 0.9f;
     }
 }
 
--(IBAction)loginOut:(id)sender{
-    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [app.bocPay logOut];
-    [app.bocPay onLogoutSuccess:^{
-        DemoViewController *theDemoViewController = [[DemoViewController alloc] init];
-        [app.window addSubview:theDemoViewController.view];
-    }];
-}
-
--(IBAction)changHost:(id)sender{
-    DebugViewController *debug = [[DebugViewController alloc]initWithNibName:@"DebugViewController" bundle:nil];
-    [self presentViewController:debug animated:YES completion:^{
-        
-    }];
-}
 
 
 @end

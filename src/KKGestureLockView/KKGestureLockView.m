@@ -15,7 +15,6 @@ const static CGFloat kLineDefaultWidth = 16;
 
 const static CGFloat kTrackedLocationInvalidInContentView = -1.0;
 
-
 @interface KKGestureLockView (){
     struct {
         unsigned int didBeginWithPasscode :1;
